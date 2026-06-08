@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<!--
+    LoginView.fxml — Halaman Login ClinStock (sesuai wireframe: split layout).
+    Kiri: Brand panel (Logo + dekorasi)
+    Kanan: Form login (Selamat Datang + field + tombol)
+-->
+<HBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.clinstock.controller.LoginController"
+      stylesheets="@../css/login.css">
+
+    <!-- ====== LEFT PANEL: Brand ====== -->
+    <VBox styleClass="login-left-panel" alignment="CENTER" spacing="20"
+          prefWidth="220" HBox.hgrow="NEVER">
+        <padding>
+            <Insets top="40" bottom="40" left="28" right="28"/>
+        </padding>
+
+        <!-- Logo Icon -->
+        <ImageView fitWidth="80" fitHeight="80" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+
+        <!-- App Name -->
+        <Label text="ClinStock" styleClass="brand-title"/>
+
+        <!-- Decorative lines -->
+        <Separator styleClass="brand-line"/>
+        <Separator styleClass="brand-line-short"/>
+
+        <!-- Tagline -->
+        <Label text="Sistem Manajemen&#10;Inventori Klinik" styleClass="brand-tagline"
+               wrapText="true" alignment="CENTER"/>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <Label text="v1.0.0" styleClass="brand-version"/>
+    </VBox>
+
+    <!-- ====== RIGHT PANEL: Login Form ====== -->
+    <VBox styleClass="login-right-panel" alignment="CENTER" spacing="0"
+          HBox.hgrow="ALWAYS">
+        <padding>
+            <Insets top="40" bottom="40" left="50" right="50"/>
+        </padding>
+
+        <!-- Welcome Header -->
+        <Label text="SELAMAT DATANG" styleClass="welcome-title"/>
+        <Region prefHeight="6"/>
+        <Label text="Silakan masuk dengan akun Anda" styleClass="welcome-subtitle"/>
+
+        <Region prefHeight="36"/>
+
+        <!-- Username -->
+        <VBox spacing="6" alignment="CENTER_LEFT" maxWidth="300">
+            <Label text="USERNAME" styleClass="field-label"/>
+            <TextField fx:id="txtUsername" promptText="Masukkan username"
+                       styleClass="login-field" prefHeight="40"/>
+        </VBox>
+
+        <Region prefHeight="16"/>
+
+        <!-- Password -->
+        <VBox spacing="6" alignment="CENTER_LEFT" maxWidth="300">
+            <Label text="PASSWORD" styleClass="field-label"/>
+            <PasswordField fx:id="txtPassword" promptText="Masukkan password"
+                           styleClass="login-field" prefHeight="40" onAction="#handleLogin"/>
+        </VBox>
+
+        <Region prefHeight="10"/>
+
+        <!-- Error Message -->
+        <Label fx:id="lblError" styleClass="error-label" wrapText="true"
+               visible="false" managed="false" maxWidth="300"/>
+
+        <Region prefHeight="24"/>
+
+        <!-- Login Button -->
+        <Button fx:id="btnLogin" text="Login" styleClass="btn-login"
+                prefHeight="40" prefWidth="300" onAction="#handleLogin"/>
+
+        <Region VBox.vgrow="ALWAYS"/>
+
+        <Label text="ClinStock © 2026" styleClass="copyright-label"/>
+    </VBox>
+
+</HBox>

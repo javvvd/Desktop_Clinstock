@@ -1,0 +1,161 @@
+/*
+ * ============================================================
+ * ClinStock - Login Page Stylesheet
+ * ============================================================
+ * Split layout: Left brand panel + Right form panel
+ * ============================================================
+ */
+
+/* ===================== LEFT PANEL (BRAND) ===================== */
+
+.login-left-panel {
+    -fx-background-color: linear-gradient(to bottom, #0f172a, #1e293b);
+    -fx-border-color: transparent rgba(51, 65, 85, 0.4) transparent transparent;
+    -fx-border-width: 0 1 0 0;
+}
+
+.app-icon-container {
+    -fx-background-color: linear-gradient(to bottom right, #0d9488, #06b6d4);
+    -fx-background-radius: 36;
+    -fx-min-width: 72;
+    -fx-min-height: 72;
+    -fx-max-width: 72;
+    -fx-max-height: 72;
+    -fx-effect: dropshadow(gaussian, rgba(13, 148, 136, 0.5), 15, 0, 0, 4);
+}
+
+.app-icon-text {
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+    -fx-fill: white;
+}
+
+.brand-title {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 26;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+.brand-line {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #334155 transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-min-width: 140;
+    -fx-max-width: 140;
+}
+
+.brand-line-short {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #0d9488 transparent;
+    -fx-border-width: 0 0 2 0;
+    -fx-min-width: 80;
+    -fx-max-width: 80;
+}
+
+.brand-tagline {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-text-alignment: center;
+}
+
+.brand-version {
+    -fx-text-fill: #334155;
+    -fx-font-size: 11;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+/* ===================== RIGHT PANEL (FORM) ===================== */
+
+.login-right-panel {
+    -fx-background-color: #1e293b;
+}
+
+.welcome-title {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 28;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-letter-spacing: 2;
+}
+
+.welcome-subtitle {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 13;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+/* ===================== FORM FIELDS ===================== */
+
+.field-label {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-letter-spacing: 1;
+}
+
+.login-field {
+    -fx-background-color: rgba(51, 65, 85, 0.5);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(71, 85, 105, 0.5);
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-text-fill: #f1f5f9;
+    -fx-prompt-text-fill: #475569;
+    -fx-font-size: 14;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-padding: 10 14;
+    -fx-cursor: text;
+}
+
+.login-field:focused {
+    -fx-border-color: #0d9488;
+    -fx-border-width: 1.5;
+    -fx-background-color: rgba(51, 65, 85, 0.8);
+    -fx-effect: dropshadow(gaussian, rgba(13, 148, 136, 0.25), 8, 0, 0, 0);
+}
+
+.login-field:hover {
+    -fx-border-color: rgba(13, 148, 136, 0.5);
+}
+
+/* ===================== ERROR MESSAGE ===================== */
+
+.error-label {
+    -fx-text-fill: #f87171;
+    -fx-font-size: 12;
+    -fx-font-family: "Segoe UI", "Arial";
+}
+
+/* ===================== LOGIN BUTTON ===================== */
+
+.btn-login {
+    -fx-background-color: linear-gradient(to right, #0d9488, #0891b2);
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(13, 148, 136, 0.3), 8, 0, 0, 2);
+}
+
+.btn-login:hover {
+    -fx-background-color: linear-gradient(to right, #14b8a6, #06b6d4);
+    -fx-effect: dropshadow(gaussian, rgba(13, 148, 136, 0.5), 12, 0, 0, 4);
+}
+
+.btn-login:pressed {
+    -fx-background-color: linear-gradient(to right, #0f766e, #0e7490);
+    -fx-effect: dropshadow(gaussian, rgba(13, 148, 136, 0.2), 4, 0, 0, 1);
+}
+
+/* ===================== COPYRIGHT ===================== */
+
+.copyright-label {
+    -fx-text-fill: #334155;
+    -fx-font-size: 11;
+    -fx-font-family: "Segoe UI", "Arial";
+}

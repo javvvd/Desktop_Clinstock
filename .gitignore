@@ -1,0 +1,22 @@
+# Maven build output
+**/target/
+**/*.class
+
+# SQLite Database
+*.db
+
+# VS Code
+.vscode/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Eclipse
+.settings/
+.classpath
+.project
+
+# OS temporary files
+.DS_Store
+Thumbs.db
