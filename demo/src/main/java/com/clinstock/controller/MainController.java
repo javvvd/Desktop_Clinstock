@@ -75,6 +75,7 @@ public class MainController {
                 addNavButton("Stok Masuk", "StokMasukView");
                 addNavButton("Stok Keluar", "StokKeluarView");
                 addNavButton("Laporan", "LaporanView");
+                addNavButton("Kelola Akun", "UserManagementView");
                 break;
             default:
                 break;

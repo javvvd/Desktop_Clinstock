@@ -139,6 +139,10 @@ public class User {
         };
     }
 
+    public String getStatusDisplayName() {
+        return isActive ? "Aktif" : "Nonaktif";
+    }
+
     @Override
     public String toString() {
         return "User{" +

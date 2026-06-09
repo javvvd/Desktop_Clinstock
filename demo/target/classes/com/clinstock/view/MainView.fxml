@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    MainView.fxml — Cangkang utama aplikasi setelah login.
+    Layout: Top NavBar + Content Area (dynamic viewport).
+-->
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.clinstock.controller.MainController"
+            stylesheets="@../css/main.css">
+
+    <!-- ====== TOP NAVIGATION BAR ====== -->
+    <top>
+        <HBox styleClass="nav-bar" alignment="CENTER_LEFT" spacing="8">
+            <!-- Logo -->
+            <HBox alignment="CENTER" spacing="6">
+                <ImageView fitWidth="24" fitHeight="24" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/logo.png" />
+                    </image>
+                </ImageView>
+                <Label text="ClinStock" styleClass="nav-logo-text"/>
+            </HBox>
+
+            <Region HBox.hgrow="NEVER" prefWidth="16"/>
+
+            <!-- Navigation Buttons (akan di-generate dinamis berdasarkan role) -->
+            <HBox fx:id="navButtonContainer" alignment="CENTER_LEFT" spacing="4">
+                <!-- Diisi oleh MainController.initialize() -->
+            </HBox>
+
+            <!-- Spacer -->
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- User Info -->
+            <VBox alignment="CENTER_RIGHT" spacing="2">
+                <Label fx:id="lblUserName" text="User" styleClass="nav-user-label"/>
+                <Label fx:id="lblUserRole" text="Role" styleClass="nav-role-label"/>
+            </VBox>
+
+            <Region prefWidth="8"/>
+
+            <!-- Logout Button -->
+            <Button text="Logout" styleClass="btn-logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <!-- ====== CONTENT AREA (Dynamic Viewport) ====== -->
+    <center>
+        <StackPane fx:id="contentArea" styleClass="content-area"/>
+    </center>
+
+</BorderPane>

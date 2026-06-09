@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    LaporanView.fxml — Halaman Laporan Inventori.
+    Fitur: Filter data (tanggal, kategori, tipe), tabel laporan, export CSV/Excel.
+-->
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.clinstock.controller.LaporanController"
+            fitToWidth="true" styleClass="page-scroll"
+            stylesheets="@../css/main.css">
+
+    <VBox spacing="20">
+        <padding>
+            <Insets top="8" bottom="20" left="4" right="4"/>
+        </padding>
+
+        <!-- Page Title -->
+        <VBox spacing="4">
+            <Label text="Laporan Inventori" styleClass="page-title"/>
+            <Label text="Ringkasan seluruh pergerakan stok masuk dan keluar."
+                   styleClass="page-subtitle"/>
+        </VBox>
+
+        <!-- ====== FILTER SECTION ====== -->
+        <VBox styleClass="form-container" spacing="14">
+            <Label text="Filter Data" styleClass="section-title"/>
+
+            <HBox spacing="16" alignment="CENTER_LEFT">
+                <!-- Date From -->
+                <VBox spacing="4">
+                    <Label text="Dari Tanggal" styleClass="form-label"/>
+                    <DatePicker fx:id="dateFrom" styleClass="form-date" prefWidth="160"/>
+                </VBox>
+
+                <!-- Date To -->
+                <VBox spacing="4">
+                    <Label text="Sampai Tanggal" styleClass="form-label"/>
+                    <DatePicker fx:id="dateTo" styleClass="form-date" prefWidth="160"/>
+                </VBox>
+
+                <!-- Category Filter -->
+                <VBox spacing="4">
+                    <Label text="Kategori" styleClass="form-label"/>
+                    <ComboBox fx:id="comboCategory" styleClass="form-combo" prefWidth="160"
+                              promptText="Semua Kategori"/>
+                </VBox>
+
+                <!-- Type Filter -->
+                <VBox spacing="4">
+                    <Label text="Tipe Transaksi" styleClass="form-label"/>
+                    <ComboBox fx:id="comboType" styleClass="form-combo" prefWidth="160"
+                              promptText="Semua Tipe"/>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Filter Button -->
+                <VBox spacing="4">
+                    <Label text=" " styleClass="form-label"/>
+                    <Button text="🔍 Terapkan Filter" styleClass="btn-primary"
+                            onAction="#handleFilter"/>
+                </VBox>
+            </HBox>
+
+            <!-- Quick Filters -->
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="Cepat:" styleClass="form-label"/>
+                <Button text="Hari Ini" styleClass="btn-secondary" onAction="#handleQuickToday"
+                        style="-fx-padding: 6 12; -fx-font-size: 11;"/>
+                <Button text="Minggu Ini" styleClass="btn-secondary" onAction="#handleQuickWeek"
+                        style="-fx-padding: 6 12; -fx-font-size: 11;"/>
+                <Button text="Bulan Ini" styleClass="btn-secondary" onAction="#handleQuickMonth"
+                        style="-fx-padding: 6 12; -fx-font-size: 11;"/>
+                <Button text="Semua Data" styleClass="btn-secondary" onAction="#handleQuickAll"
+                        style="-fx-padding: 6 12; -fx-font-size: 11;"/>
+            </HBox>
+        </VBox>
+
+        <!-- ====== EXPORT + INFO ROW ====== -->
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Label fx:id="lblResultInfo" text="Menampilkan 0 data" styleClass="page-subtitle"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="📊 Export Excel" styleClass="btn-primary"
+                    onAction="#handleExportExcel"/>
+            <Button text="📄 Export PDF" styleClass="btn-secondary"
+                    onAction="#handleExportPDF"/>
+        </HBox>
+
+        <!-- ====== REPORT TABLE ====== -->
+        <TableView fx:id="tableReport" styleClass="data-table" VBox.vgrow="ALWAYS"
+                   prefHeight="380">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="colNo" text="No" minWidth="40" prefWidth="40" maxWidth="50"/>
+                <TableColumn fx:id="colDate" text="Tanggal" prefWidth="140"/>
+                <TableColumn fx:id="colType" text="Tipe" prefWidth="90"/>
+                <TableColumn fx:id="colItemCode" text="Kode" prefWidth="90"/>
+                <TableColumn fx:id="colItemName" text="Nama Barang" prefWidth="180"/>
+                <TableColumn fx:id="colCategory" text="Kategori" prefWidth="120"/>
+                <TableColumn fx:id="colBatch" text="Batch" prefWidth="120"/>
+                <TableColumn fx:id="colExpiredDate" text="Kadaluarsa" prefWidth="120"/>
+                <TableColumn fx:id="colQty" text="Jumlah" prefWidth="80"/>
+                <TableColumn fx:id="colDetail" text="Keterangan" prefWidth="180"/>
+            </columns>
+            <placeholder>
+                <Label text="Pilih filter dan klik 'Terapkan Filter' untuk menampilkan data laporan."
+                       styleClass="page-subtitle"/>
+            </placeholder>
+        </TableView>
+
+    </VBox>
+</ScrollPane>

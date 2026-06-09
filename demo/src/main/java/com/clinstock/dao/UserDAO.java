@@ -3,10 +3,9 @@ package com.clinstock.dao;
 import com.clinstock.model.User;
 import com.clinstock.util.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Data Access Object (DAO) untuk entitas User.
@@ -18,6 +17,8 @@ import java.sql.SQLException;
  * method CRUD lengkap (create, update, delete, getAll).</p>
  */
 public class UserDAO {
+
+    public static final String INITIAL_MANAGER_USERNAME = "manajer";
 
     // Instance koneksi database
     private final Connection connection;
@@ -96,5 +97,125 @@ public class UserDAO {
         }
 
         return null;
+    }
+
+    public List<User> getAllUsers() {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT id, username, full_name, role, is_active, created_at, updated_at "
+                   + "FROM users ORDER BY role, username";
+
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                users.add(mapResultSetToUser(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("[DAO] Error saat mengambil daftar user: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+    public List<User> searchUsers(String keyword) {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT id, username, full_name, role, is_active, created_at, updated_at "
+                   + "FROM users "
+                   + "WHERE username LIKE ? OR full_name LIKE ? OR role LIKE ? "
+                   + "ORDER BY role, username";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            String pattern = "%" + keyword + "%";
+            pstmt.setString(1, pattern);
+            pstmt.setString(2, pattern);
+            pstmt.setString(3, pattern);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    users.add(mapResultSetToUser(rs));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("[DAO] Error saat mencari user: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return users;
+    }
+
+    public boolean insertUser(User user) {
+        String sql = "INSERT INTO users (username, password, full_name, role, is_active) "
+                   + "VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getFullName());
+            pstmt.setString(4, user.getRole());
+            pstmt.setInt(5, user.isActive() ? 1 : 0);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("[DAO] Error saat menambahkan user: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateUser(User user, boolean updatePassword) {
+        String sql;
+        if (updatePassword) {
+            sql = "UPDATE users SET username=?, password=?, full_name=?, role=?, is_active=?, "
+                + "updated_at=datetime('now','localtime') WHERE id=?";
+        } else {
+            sql = "UPDATE users SET username=?, full_name=?, role=?, is_active=?, "
+                + "updated_at=datetime('now','localtime') WHERE id=?";
+        }
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, user.getUsername());
+            if (updatePassword) {
+                pstmt.setString(2, user.getPassword());
+                pstmt.setString(3, user.getFullName());
+                pstmt.setString(4, user.getRole());
+                pstmt.setInt(5, user.isActive() ? 1 : 0);
+                pstmt.setInt(6, user.getId());
+            } else {
+                pstmt.setString(2, user.getFullName());
+                pstmt.setString(3, user.getRole());
+                pstmt.setInt(4, user.isActive() ? 1 : 0);
+                pstmt.setInt(5, user.getId());
+            }
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("[DAO] Error saat memperbarui user: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteUser(int id) {
+        String sql = "DELETE FROM users WHERE id = ? AND username <> ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.setString(2, INITIAL_MANAGER_USERNAME);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println("[DAO] Error saat menghapus user: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private User mapResultSetToUser(ResultSet rs) throws SQLException {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setUsername(rs.getString("username"));
+        user.setFullName(rs.getString("full_name"));
+        user.setRole(rs.getString("role"));
+        user.setActive(rs.getInt("is_active") == 1);
+        user.setCreatedAt(rs.getString("created_at"));
+        user.setUpdatedAt(rs.getString("updated_at"));
+        return user;
     }
 }

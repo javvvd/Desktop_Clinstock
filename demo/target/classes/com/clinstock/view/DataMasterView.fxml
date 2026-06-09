@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    DataMasterView.fxml — Halaman Kelola Data Master Barang.
+    Fitur: Tambah/Edit/Hapus item, search/filter, tabel dengan pagination.
+-->
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.clinstock.controller.DataMasterController"
+            fitToWidth="true" styleClass="page-scroll"
+            stylesheets="@../css/main.css">
+
+    <VBox spacing="16">
+        <padding>
+            <Insets top="8" bottom="20" left="4" right="4"/>
+        </padding>
+
+        <!-- Page Title -->
+        <VBox spacing="4">
+            <Label text="Data Master" styleClass="page-title"/>
+            <Label text="Kelola data obat dan alat kesehatan klinik." styleClass="page-subtitle"/>
+        </VBox>
+
+        <!-- Toolbar: Add + Search -->
+        <HBox spacing="12" alignment="CENTER_LEFT">
+            <Button fx:id="btnAdd" text="＋ Tambah Obat Baru"
+                    styleClass="btn-primary" onAction="#handleAdd"/>
+            <Button text="📊 Export Excel" styleClass="btn-primary"
+                    onAction="#handleExportExcel"/>
+            <Button text="📄 Export PDF" styleClass="btn-secondary"
+                    onAction="#handleExportPDF"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="txtSearch" promptText="Cari nama, kode, atau kategori..."
+                       styleClass="search-field" prefWidth="320" onKeyReleased="#handleSearch"/>
+        </HBox>
+
+        <!-- Status Message -->
+        <Label fx:id="lblStatus" text="" styleClass="status-label" visible="false" managed="false"/>
+
+        <!-- Data Table -->
+        <TableView fx:id="tableItems" styleClass="data-table" VBox.vgrow="ALWAYS"
+                   prefHeight="420">
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <columns>
+                <TableColumn fx:id="colCode" text="Kode" prefWidth="100"/>
+                <TableColumn fx:id="colName" text="Nama Barang" prefWidth="200"/>
+                <TableColumn fx:id="colCategory" text="Kategori" prefWidth="120"/>
+                <TableColumn fx:id="colUnit" text="Satuan" prefWidth="80"/>
+                <TableColumn fx:id="colMinStock" text="Stok Min" prefWidth="80"/>
+                <TableColumn fx:id="colCurrentStock" text="Stok Saat Ini" prefWidth="100"/>
+                <TableColumn fx:id="colAction" text="Aksi" prefWidth="150"/>
+            </columns>
+            <placeholder>
+                <Label text="Belum ada data barang. Klik 'Tambah Obat Baru' untuk menambahkan."
+                       styleClass="page-subtitle"/>
+            </placeholder>
+        </TableView>
+
+        <!-- Pagination -->
+        <HBox spacing="10" alignment="CENTER_RIGHT">
+            <Label fx:id="lblPageInfo" text="Halaman 1" styleClass="pagination-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="btnPrev" text="Prev" styleClass="btn-secondary" onAction="#handlePrev"
+                    style="-fx-padding: 7 16;"/>
+            <Button fx:id="btnNext" text="Next" styleClass="btn-secondary" onAction="#handleNext"
+                    style="-fx-padding: 7 16;"/>
+        </HBox>
+
+    </VBox>
+</ScrollPane>
